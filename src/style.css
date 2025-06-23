@@ -1,0 +1,178 @@
+:root {
+  --primary-color: #4f46e5;
+  --secondary-color: #10b981;
+  --background-color: #f3f4f6;
+  --text-color: #1f2937;
+  --container-bg: #ffffff;
+  --card-bg: #ffffff;
+  --border-color: #e5e7eb;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+section {
+  background: var(--container-bg);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px var(--shadow-color);
+  margin-bottom: 2.5rem;
+}
+
+/* Form Styles */
+form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+input[type='text'],
+input[type='number'] {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f9fafb;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type='text']:focus,
+input[type='number']:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+button[type='submit'] {
+  grid-column: 1 / -1;
+  padding: 0.875rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button[type='submit']:hover {
+  background-color: #4338ca;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: #a5b4fc;
+  cursor: not-allowed;
+}
+
+/* Result & Cluster Styles */
+#result {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: #eef2ff;
+  border: 1px solid #c7d2fe;
+  margin-top: 1.5rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+#result h3 {
+  color: var(--primary-color);
+  margin-top: 0;
+}
+
+.cluster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.cluster-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.cluster-card.active {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1), 0 4px 6px -2px rgba(79, 70, 229, 0.05);
+  border-color: var(--primary-color);
+}
+
+.cluster-card h3 {
+  color: var(--primary-color);
+  margin-top: 0;
+}
+
+/* EDA Grid */
+.eda-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 2rem;
+}
+
+.eda-image {
+  text-align: center;
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.eda-image:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px var(--shadow-color);
+}
+
+.eda-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.error-message {
+  color: #ef4444;
+  font-weight: 500;
+  background-color: #fee2e2;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #fca5a5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
