@@ -60,16 +60,12 @@
   position: relative;
 }
 
-/* Ultra Modern Logo */
+/* Single Color Logo */
 .navbar-logo {
   color: var(--navbar-text);
   text-decoration: none;
   font-size: 1.8rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #ffffff 0%, var(--navbar-accent) 50%, var(--navbar-accent-hover) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   transition: var(--transition-smooth);
   position: relative;
   letter-spacing: -0.02em;
