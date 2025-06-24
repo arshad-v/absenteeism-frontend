@@ -4,6 +4,7 @@ import './Navbar.css';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -12,6 +13,17 @@ const Navbar = () => {
   const closeMobileMenu = () => {
     setIsMenuOpen(false);
   };
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -39,40 +51,64 @@ const Navbar = () => {
     return () => document.removeEventListener('keydown', handleEscape);
   }, [isMenuOpen]);
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (isMenuOpen && !e.target.closest('.navbar-container')) {
+        closeMobileMenu();
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMenuOpen]);
+
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
-        <NavLink to="/" className="navbar-logo" onClick={closeMobileMenu}>
+        <NavLink 
+          to="/" 
+          className="navbar-logo" 
+          onClick={closeMobileMenu}
+          aria-label="Absenteeism AI - Home"
+        >
           Absenteeism AI
         </NavLink>
 
-        {/* Hamburger Icon */}
+        {/* Ultra Modern Hamburger Icon */}
         <div 
           className={`menu-icon ${isMenuOpen ? 'active' : ''}`} 
           onClick={toggleMenu}
-          aria-label="Toggle navigation menu"
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMenuOpen}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
               toggleMenu();
             }
           }}
         >
-          <div className="bar"></div>
-          <div className="bar"></div>
-          <div className="bar"></div>
+          <div className="bar" aria-hidden="true"></div>
+          <div className="bar" aria-hidden="true"></div>
+          <div className="bar" aria-hidden="true"></div>
         </div>
 
-        {/* Navigation Menu */}
-        <ul className={isMenuOpen ? 'nav-menu active' : 'nav-menu'}>
+        {/* Ultra Modern Navigation Menu */}
+        <ul 
+          className={isMenuOpen ? 'nav-menu active' : 'nav-menu'}
+          role="navigation"
+          aria-label="Main navigation"
+        >
           <li className="nav-item">
             <NavLink 
               to="/" 
               className={({ isActive }) => (isActive ? 'nav-links active' : 'nav-links')} 
               onClick={closeMobileMenu}
+              aria-label="Go to Dashboard"
             >
-              Dashboard
+              <span>Dashboard</span>
             </NavLink>
           </li>
           <li className="nav-item">
@@ -80,20 +116,12 @@ const Navbar = () => {
               to="/predict" 
               className={({ isActive }) => (isActive ? 'nav-links active' : 'nav-links')} 
               onClick={closeMobileMenu}
+              aria-label="Go to Prediction page"
             >
-              Predict
+              <span>Predict</span>
             </NavLink>
           </li>
         </ul>
-
-        {/* Overlay to close menu when clicking outside */}
-        {isMenuOpen && (
-          <div 
-            className="menu-overlay" 
-            onClick={closeMobileMenu}
-            aria-hidden="true"
-          />
-        )}
       </div>
     </nav>
   );
