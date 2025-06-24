@@ -19,6 +19,19 @@ const PredictionPage = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Field configurations with placeholders
+  const fieldConfig = {
+    Gender: { type: 'select', placeholder: 'Select gender', options: ['Male', 'Female'] },
+    City: { type: 'text', placeholder: 'e.g., New York' },
+    JobTitle: { type: 'text', placeholder: 'e.g., Software Engineer' },
+    DepartmentName: { type: 'text', placeholder: 'e.g., Information Technology' },
+    StoreLocation: { type: 'text', placeholder: 'e.g., Downtown Branch' },
+    BusinessUnit: { type: 'text', placeholder: 'e.g., Corporate Services' },
+    Division: { type: 'text', placeholder: 'e.g., Technology Division' },
+    Age: { type: 'number', placeholder: 'e.g., 30' },
+    LengthService: { type: 'number', placeholder: 'e.g., 5' },
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -53,24 +66,47 @@ const PredictionPage = () => {
     { id: 3, title: 'Very High Risk Employees', description: 'Employees with significant absenteeism risk; immediate intervention recommended.' },
   ];
 
+  const formatFieldName = (key) => {
+    return key.replace(/([A-Z])/g, ' $1').trim();
+  };
+
   return (
     <>
       <section>
         <h2>Predict Absenteeism</h2>
         <form onSubmit={handleSubmit}>
-          {Object.keys(formData).map((key) => (
-            <label key={key}>
-              {key.replace(/([A-Z])/g, ' $1').trim()}:
-              <input
-                type={key === 'Age' || key === 'LengthService' ? 'number' : 'text'}
-                name={key}
-                value={formData[key]}
-                onChange={handleInputChange}
-                placeholder={`e.g., ${key === 'Age' ? '30' : '...'}`}
-                required
-              />
-            </label>
-          ))}
+          {Object.keys(formData).map((key) => {
+            const config = fieldConfig[key];
+            return (
+              <label key={key}>
+                {formatFieldName(key)}:
+                {config.type === 'select' ? (
+                  <select
+                    name={key}
+                    value={formData[key]}
+                    onChange={handleInputChange}
+                    required
+                  >
+                    <option value="">{config.placeholder}</option>
+                    {config.options.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type={config.type}
+                    name={key}
+                    value={formData[key]}
+                    onChange={handleInputChange}
+                    placeholder={config.placeholder}
+                    required
+                  />
+                )}
+              </label>
+            );
+          })}
           <button type="submit" disabled={loading}>
             {loading ? 'Predicting...' : 'Predict Absenteeism'}
           </button>

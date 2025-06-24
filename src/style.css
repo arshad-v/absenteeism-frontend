@@ -56,7 +56,8 @@ label {
 }
 
 input[type='text'],
-input[type='number'] {
+input[type='number'],
+select {
   padding: 0.75rem 1rem;
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -66,10 +67,19 @@ input[type='number'] {
 }
 
 input[type='text']:focus,
-input[type='number']:focus {
+input[type='number']:focus,
+select:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+select {
+  cursor: pointer;
+}
+
+select option {
+  padding: 0.5rem;
 }
 
 button[type='submit'] {
@@ -270,4 +280,3 @@ button:disabled {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
