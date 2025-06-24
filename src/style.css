@@ -158,8 +158,41 @@ button:disabled {
 
 .eda-image img {
   max-width: 100%;
-  height: auto;
+  object-fit: cover;
   border-radius: 8px;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .eda-grid,
+  .cluster-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  form label {
+    grid-column: 1 / -1; /* Make labels take full width */
+  }
+
+  .result-card {
+    padding: 1rem;
+  }
 }
 
 .error-message {
