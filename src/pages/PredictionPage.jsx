@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:5000';
+const API_URL = 'https://absenteeism-backend-1.onrender.com';
 
 const PredictionPage = () => {
   const [formData, setFormData] = useState({
