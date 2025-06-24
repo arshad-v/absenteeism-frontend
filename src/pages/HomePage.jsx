@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 
 const HomePage = () => {
   const analyticsImages = [
-    { src: '/images/age_distribution.png', alt: 'Age Distribution' },
-    { src: '/images/correlation_heatmap.png', alt: 'Correlation Heatmap' },
-    { src: '/images/cluster_distribution.png', alt: 'Cluster Distribution' },
-    { src: '/images/cluster_scatter.png', alt: 'Cluster Scatter Plot' },
+    { src: './images/age_distribution.png', alt: 'Age Distribution' },
+    { src: './images/correlation_heatmap.png', alt: 'Correlation Heatmap' },
+    { src: './images/cluster_distribution.png', alt: 'Cluster Distribution' },
+    { src: './images/cluster_scatter.png', alt: 'Cluster Scatter Plot' },
   ];
 
   const containerVariants = {
