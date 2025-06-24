@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
@@ -13,6 +13,32 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('menu-open');
+    };
+  }, [isMenuOpen]);
+
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        closeMobileMenu();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMenuOpen]);
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -21,7 +47,18 @@ const Navbar = () => {
         </NavLink>
 
         {/* Hamburger Icon */}
-        <div className="menu-icon" onClick={toggleMenu}>
+        <div 
+          className={`menu-icon ${isMenuOpen ? 'active' : ''}`} 
+          onClick={toggleMenu}
+          aria-label="Toggle navigation menu"
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              toggleMenu();
+            }
+          }}
+        >
           <div className="bar"></div>
           <div className="bar"></div>
           <div className="bar"></div>
@@ -48,6 +85,15 @@ const Navbar = () => {
             </NavLink>
           </li>
         </ul>
+
+        {/* Overlay to close menu when clicking outside */}
+        {isMenuOpen && (
+          <div 
+            className="menu-overlay" 
+            onClick={closeMobileMenu}
+            aria-hidden="true"
+          />
+        )}
       </div>
     </nav>
   );
